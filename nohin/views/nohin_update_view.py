@@ -18,7 +18,7 @@ class NohinUpdateView(LoginRequiredMixin, View):
         nohinId = request.GET['nohin_id']
         service = NohinService(request)
         nohin = service.retrieveNohin(nohinId)
-        
+
         if not nohin:
             messages.error(request, '納品情報の取得に失敗しました。')
             return redirect(reverse('nohin_list_view'))
@@ -65,6 +65,6 @@ class NohinUpdateView(LoginRequiredMixin, View):
         service.updateNohin(form, formset)
         service.registCompany(form.cleaned_data['nohinsaki'])
         messages.success(request, '納品情報を更新しました。')
-        
+
         # 納品一覧画面の初期表示処理へリダイレクト
         return redirect(reverse('nohin_list_view'))

@@ -14,14 +14,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Suitou',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('regist_date', models.DateTimeField(verbose_name='登録日時')),
                 ('regist_user', models.CharField(max_length=50, verbose_name='登録ユーザ')),
                 ('update_date', models.DateTimeField(null=True, verbose_name='更新日時')),
                 ('update_user', models.CharField(max_length=50, null=True, verbose_name='更新ユーザ')),
                 ('belong_user', models.CharField(max_length=50, verbose_name='所属ユーザ')),
-                ('suitou_date', models.DateField(verbose_name='納品日')),
-                ('suitousaki', models.CharField(max_length=50, verbose_name='納品先')),
+                ('suitou_date', models.DateField(verbose_name='出納日')),
+                ('suitousaki', models.CharField(max_length=50, verbose_name='出納先')),
                 ('total_price', models.IntegerField(verbose_name='合計金額')),
                 ('memo', models.TextField(blank=True, max_length=1000, null=True, verbose_name='メモ')),
             ],
@@ -32,7 +33,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SuitouDetail',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('regist_date', models.DateTimeField(verbose_name='登録日時')),
                 ('regist_user', models.CharField(max_length=50, verbose_name='登録ユーザ')),
                 ('update_date', models.DateTimeField(null=True, verbose_name='更新日時')),
@@ -41,7 +43,8 @@ class Migration(migrations.Migration):
                 ('kataban', models.CharField(max_length=50, verbose_name='会社名')),
                 ('price', models.IntegerField(verbose_name='単価')),
                 ('amount', models.IntegerField(verbose_name='数量')),
-                ('nohin', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app_table.Nohin', verbose_name='納品')),
+                ('suitou', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                             to='app_table.Suitou', verbose_name='出納')),
             ],
             options={
                 'abstract': False,

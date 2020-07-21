@@ -83,7 +83,7 @@ class Suitou(BaseModel):
     出納履歴
     '''
     belong_user = models.CharField(verbose_name='所属ユーザ', max_length=50)
-    suitou_date = models.DateField(verbose_name='納品日')
+    suitou_date = models.DateField(verbose_name='出納日')
     suitousaki = models.CharField(verbose_name='出納先', max_length=50)
     total_price = models.IntegerField(verbose_name='合計金額')
     memo = models.TextField(verbose_name='メモ', max_length=1000, null=True, blank=True)

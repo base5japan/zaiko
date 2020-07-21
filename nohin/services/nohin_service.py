@@ -8,10 +8,12 @@ from django.db.models import Sum
 from django.db import connection
 import json
 
+
 class NohinService:
     '''
     納品画面用サービスクラス
     '''
+
     def __init__(self, request):
         self.request = request
 
@@ -20,9 +22,9 @@ class NohinService:
         納品情報を検索する
         '''
         nohin = (Nohin.objects
-            .filter(belong_user=self.request.user.email, id=nohinId)
-            .values('id', 'nohin_date', 'nohinsaki', 'total_price', 'memo')
-        )
+                 .filter(belong_user=self.request.user.email, id=nohinId)
+                 .values('id', 'nohin_date', 'nohinsaki', 'total_price', 'memo')
+                 )
         return nohin
 
     def retrieveNohinDetailList(self, nohinId):
@@ -30,8 +32,8 @@ class NohinService:
         納品情報を検索する
         '''
         nohinDetailList = (NohinDetail.objects
-            .filter(belong_user=self.request.user.email, nohin_id=nohinId)
-        )
+                           .filter(belong_user=self.request.user.email, nohin_id=nohinId)
+                           )
         return nohinDetailList
 
     def retrieveNohinModel(self, nohinId):
@@ -46,12 +48,12 @@ class NohinService:
         納品情報を検索する
         '''
         nohinDetail = NohinDetail.objects.all().filter(
-            belong_user=self.request.user.email, 
+            belong_user=self.request.user.email,
             nohin=nohin
         )
 
         return nohinDetail
-    
+
     def retrieveNohinList(self):
         '''
         納品一覧情報を検索する
@@ -61,7 +63,7 @@ class NohinService:
         #     .values('id', 'nohin_date', 'nohinsaki', 'total_price', 'memo')
         #     .values('id', 'nohin_date', 'nohinsaki', 'memo')
         #     .order_by('-nohin_date', '-regist_date') # 降順
-        #     .annotate(total_price = Sum('nohindetail__price * nohindetail__amount')) 
+        #     .annotate(total_price = Sum('nohindetail__price * nohindetail__amount'))
         # )
 
         query = '''
@@ -91,10 +93,11 @@ class NohinService:
         with connection.cursor() as cursor:
             cursor.execute(query, [self.request.user.email])
             nohinList = dictfetchall(cursor)
-        
+
         for nohin in nohinList:
             if nohin.get('zeinuki_total_price'):
-                nohin['total_price'] = (nohin.get('zeinuki_total_price') * Decimal('1.08')).quantize(Decimal('0'), rounding=ROUND_DOWN)
+                nohin['total_price'] = (nohin.get('zeinuki_total_price') *
+                                        Decimal('1.08')).quantize(Decimal('0'), rounding=ROUND_DOWN)
             else:
                 nohin['total_price'] = Decimal('0')
 
@@ -113,10 +116,10 @@ class NohinService:
         '''
         shohinJson = json.dumps(
             list(Shohin.objects
-                .filter(belong_user=self.request.user.email)
-                .values('kataban', 'shohin_name', 'zaikosu', 'price')
-                .order_by('kataban')
-            )
+                 .filter(belong_user=self.request.user.email)
+                 .values('kataban', 'shohin_name', 'zaikosu', 'price')
+                 .order_by('kataban')
+                 )
         )
         return shohinJson
 
@@ -126,10 +129,10 @@ class NohinService:
         '''
         companyJson = json.dumps(
             list(Company.objects
-                .filter(belong_user=self.request.user.email)
-                .values('company_name')
-                .order_by('company_name')
-            )
+                 .filter(belong_user=self.request.user.email)
+                 .values('company_name')
+                 .order_by('company_name')
+                 )
         )
         return companyJson
 
@@ -138,11 +141,11 @@ class NohinService:
         会社名の存在有無を確認し、存在しなければ登録する
         '''
         exist = (Company.objects
-            .filter(
-                belong_user=self.request.user.email,
-                company_name=companyName,
-            ).exists()
-        )
+                 .filter(
+                     belong_user=self.request.user.email,
+                     company_name=companyName,
+                 ).exists()
+                 )
 
         if not exist:
             company = Company()
@@ -162,7 +165,7 @@ class NohinService:
 
         # 画面からPOSTされたデータの他に必須のデータをセットして保存する
         nohin.belong_user = self.request.user.email
-        nohin.total_price = 0 # TODO:このカラムは使用しないため削除する
+        nohin.total_price = 0  # TODO:このカラムは使用しないため削除する
         nohin.regist_user = self.request.user.email
         # nohin.regist_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
         nohin.regist_date = self.request.requestDateTime
@@ -184,7 +187,7 @@ class NohinService:
         detailList = formset.save(commit=False)
 
         # 画面からPOSTされたデータの他に必要なデータをセットして保存する
-        nohin.total_price = 0 # TODO:このカラムは使用しないため削除する
+        nohin.total_price = 0  # TODO:このカラムは使用しないため削除する
         nohin.update_user = self.request.user.email
         # nohin.update_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
         nohin.update_date = self.request.requestDateTime
