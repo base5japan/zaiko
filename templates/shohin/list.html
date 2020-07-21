@@ -1,0 +1,139 @@
+{% extends 'fragment/base.html' %}
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+
+<!-- ページごとのCSS -->
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'resources/css/shohin/list.css' %}">
+{% endblock %}
+
+<!-- タイトル -->
+{% block page_title %}
+    商品一覧
+{% endblock %}
+
+<!-- コンテンツ -->
+{% block content %}
+    <div class="contents">
+        <!-- メッセージ表示部 -->
+        <div class="container-fluid">
+            {% if messages %}
+                <div class="row">
+                    <div class="col-12">
+                        {% for message in messages %}
+                            <div class="{{ message.tags }}" role="alert" style="padding: 1.0ex 2.0ex;">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+                                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <br>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- 個別コンテンツ -->
+        <div class="container-fluid animated fadeInUpSmall">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="thead_tr">
+                                <td class="shohin_width">
+                                    <span>型番・商品名</span>
+                                    <hr>
+                                </td>
+                                <td class="price_width">
+                                    <span>単価</span>
+                                    <hr>
+                                </td>
+                                <td class="zaikosu_width">
+                                    <span>在庫数</span>
+                                    <hr>
+                                </td>
+                                <td class="func_icon_width func_icon_head">
+                                    <!--TODO: 検索機能を追加する-->
+                                    <a class="circle_btn_small" data-toggle="modal" data-target="#search_condition_modal"><i class="fas fa-search"></i></a>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for shohin in shohin_list %}
+                                <tr class="align_center">
+                                    <td class="shohin_width shohin_row">
+                                        <span class="shohin_kataban">{{shohin.kataban}}</span><br>
+                                        <span class="shohin_name">{{shohin.shohin_name}}</span>
+                                    </td>
+                                    <td class="price_width price_row">
+                                        <i class="fas fa-yen-sign font_16"></i>
+                                        <span>{{shohin.price|intcomma}}</span>
+                                    </td>
+                                    <td class="zaikosu_width zaikosu_row">
+                                        <span>{{shohin.zaikosu|intcomma}}</span>
+                                    </td>
+                                    <td class="func_icon_width func_icon_row" data-kataban="{{shohin.kataban}}">
+                                        <a class="animsition-link row_circle_btn js_update_btn"><i class="fa-lg far fa-list-alt"></i></a>
+                                        <a class="animsition-link row_circle_btn js_delete_btn"><i class="fas fa-times"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- end row-->
+        </div>
+
+        <!-- 処理対象型番送信用Form-->
+        <form action="" method="post" name="shohin_kataban_form">
+            {% csrf_token %}
+            <input type="hidden" value="" class="js_shohin_kataban" name="kataban">
+        </form>
+    </div>
+
+    <!-- 画面右下のボタン -->
+    <a href={% url 'shohin_regist_view' %} class="circle_btn animated fadeInRightBig animsition-link">
+        <i class="fa-lg fas fa-plus color_white"></i>
+    </a>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="search_condition_modal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal_global">
+                
+                <!-- MODAL HEADER -->
+                <div class="modal-header modal_header_global">
+                    <div class="modal-title modal_title">
+                        <span>検索条件</span>
+                    </div>
+                    <!-- 閉じるボタン -->
+                    <button type="button" class="close" data-dismiss="modal"><i class="fas fa-lg fa-times"></i></button>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- MODAL BODY -->
+                        <div class="modal-body modal_boddy_global">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- MODAL FOOTER -->
+                <div class="modal-footer modal_footer_global">
+                    <button type="submit" onfocus="this.blur();" class="common_btn"><i class="fas fa-search"></i> 検索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- ページごとのjs -->
+{% block extra_js %}
+    <script src="{% static 'resources/js/shohin/list.js' %}"></script>
+    <script>
+        var shohin_delete_view_url = "{% url 'shohin_delete_view' %}";
+        var shohin_update_view_url = "{% url 'shohin_update_view' %}";
+    </script>
+{% endblock %}

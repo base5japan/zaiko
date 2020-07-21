@@ -1,0 +1,151 @@
+{% extends 'fragment/base.html' %}
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+
+<!-- ページごとのCSS -->
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'resources/css/nohin/list.css' %}">
+{% endblock %}
+
+<!-- タイトル -->
+{% block page_title %}
+    納品履歴一覧
+{% endblock %}
+
+<!-- コンテンツ -->
+{% block content %}
+    <div class="contents">
+        <!-- メッセージ表示部 -->
+        <div class="container-fluid">
+            {% if messages %}
+                <div class="row">
+                    <div class="col-12">
+                        {% for message in messages %}
+                            <div class="{{ message.tags }}" role="alert" style="padding: 1.0ex 2.0ex;">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="閉じる">
+                                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                        <br>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- 個別コンテンツ -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table table-striped animated fadeInUpSmall">
+                        <thead>
+                            <tr class="thead_tr">
+                                <td class="date_width">
+                                    <span>納品日</span>
+                                    <hr>
+                                </td>
+                                <td class="torihikisaki_width">
+                                    <span>納品先</span>
+                                    <hr>
+                                </td>
+                                <td class="kingaku_width">
+                                    <span>合計金額</span>
+                                    <hr>
+                                </td>
+                                <td class="func_icon_width func_icon_head">
+                                    <a class="circle_btn_small" data-toggle="modal" data-target="#nohinSearchModal"><i class="fas fa-search"></i></a>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for nohin in nohin_list %}
+                                <tr class="align_center">
+                                    <td class="date_width date_row">
+                                        <span>{{nohin.nohin_date|date:'Y/m/d'}}</span>
+                                    </td>
+                                    <td class="torihikisaki_width torihikisaki_row">
+                                        <span>{{nohin.nohinsaki}}</span>
+                                    </td>
+                                    <td class="kingaku_width kingaku_row">
+                                        <i class="fas fa-yen-sign font_16"></i>
+                                        <span>{{nohin.total_price|intcomma}}</span>
+                                    </td>
+                                    <td class="func_icon_width func_icon_row" data-nohin_id="{{nohin.id}}">
+                                        {% if mode == 'list' %}
+                                            <a class="animsition-link row_circle_btn js_update_btn"><i class="fa-lg far fa-list-alt"></i></a>
+                                            <a class="animsition-link row_circle_btn js_delete_btn"><i class="fas fa-times"></i></a>
+                                        {% endif %}
+                                        {% if mode == 'pdf_list' %}
+                                            <!-- 納品書プレビュー，ダウンロード -->
+                                            <a href="{% url 'delivery_note_view' %}?nohin_id={{nohin.id}}&preview=1" target="_blank" class="row_circle_btn"><i class="far fa-file"></i></a>
+                                            <a class="row_circle_btn js_pdf_download_btn"><i class="fas fa-download"></i></a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div><!-- end row-->
+        </div>
+
+        <!-- 処理対象型番送信用Form-->
+        <form action="" method="post" name="nohin_id_form">
+            {% csrf_token %}
+            <input type="hidden" value="" class="js_nohin_id" name="nohin_id">
+        </form>
+    </div>
+    
+    <!-- 画面右下のボタン -->
+    {% if mode == 'list' %}
+        <a href={% url 'nohin_regist_view' %} class="circle_btn animated fadeInRightBig animsition-link"><i class="fa-lg fas fa-plus color_white"></i></a>
+    {% endif %}
+
+    <!-- MODAL -->
+    <div class="modal fade" id="nohinSearchModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content modal_global">
+                
+                <!-- MODAL HEADER -->
+                <div class="modal-header modal_header_global">
+                    <div class="modal-title modal_title">
+                        <span>納品履歴検索</span>
+                    </div>
+                    <!-- 閉じるボタン -->
+                    <button type="button" class="close" data-dismiss="modal"><i class="fas fa-lg fa-times"></i></button>
+                </div>
+
+                <form action="nohin_toroku.html" method="post" autocomplete="off">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- MODAL BODY -->
+                            <div class="modal-body modal_boddy_global">
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MODAL FOOTER -->
+                    <div class="modal-footer modal_footer_global">
+                        <button type="submit" onfocus="this.blur();" class="common_btn"><i class="fas fa-search"></i> 検索</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- ページごとのjs -->
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="{% static 'resources/js/nohin/list.js' %}"></script>
+    <script>
+        var nohinDeleteViewUrl = "{% url 'nohin_delete_view' %}";
+        var nohinUpdateViewUrl = "{% url 'nohin_update_view' %}";
+        var deliveryNoteViewUrl = "{% url 'delivery_note_view' %}";
+        var mode = "{{ mode }}";
+    </script>
+{% endblock %}
