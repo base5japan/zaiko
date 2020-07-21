@@ -19,7 +19,7 @@ class DeliveryNoteView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         '''
-        納品書PDFをダウンロードする
+        出納書PDFをダウンロードする
         '''
         params, fileName = self._retrieveSuitouData()
         # template = get_template('suitou/delivery_note_pdf.html')
@@ -48,7 +48,7 @@ class DeliveryNoteView(LoginRequiredMixin, View):
         suitou = service.retrieveSuitou(suitouId)
 
         if not suitou:
-            messages.error(self.request, '納品情報の取得に失敗しました。')
+            messages.error(self.request, '出納情報の取得に失敗しました。')
             return redirect(reverse('suitou_list_view'))
 
         suitou = list(suitou)[0]
@@ -69,8 +69,8 @@ class DeliveryNoteView(LoginRequiredMixin, View):
             'detailList': detailList,
         }
 
-        # ファイル名：例）納品書_20190706_株式会社〇〇〇〇.pdf
+        # ファイル名：例）出納書_20190706_株式会社〇〇〇〇.pdf
         fileName = parse.quote(
-            f'納品書_{suitou["suitou_date"].strftime("%Y%m%d")}_{suitou["suitousaki"]}.pdf')
+            f'出納書_{suitou["suitou_date"].strftime("%Y%m%d")}_{suitou["suitousaki"]}.pdf')
 
         return params, fileName

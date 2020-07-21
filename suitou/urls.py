@@ -1,9 +1,9 @@
 from django.urls import path
 from .views.suitou_list_view import SuitouListView
-from .views.suitou_regist_view import SuitouRegistView
-from .views.suitou_update_view import SuitouUpdateView
-from .views.suitou_delete_view import SuitouDeleteView
-from .views.delivery_note_view import DeliveryNoteView
+from suitou.views.suitou_regist_view import SuitouRegistView
+from suitou.views.suitou_update_view import SuitouUpdateView
+from suitou.views.suitou_delete_view import SuitouDeleteView
+from suitou.views.delivery_note_view import DeliveryNoteView
 
 urlpatterns = [
     path('list/', SuitouListView.as_view(), kwargs={'mode': 'list'}, name='suitou_list_view'),

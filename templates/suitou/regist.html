@@ -10,7 +10,7 @@
 
 <!-- タイトル -->
 {% block page_title %}
-納品登録
+出納登録
 {% endblock %}
 
 <!-- コンテンツ -->
@@ -40,14 +40,14 @@
         <form action="" method="post" name="suitou_form" autocomplete="off">
             {% csrf_token %}
 
-            <!-- 更新対象のNohin.idの値 -->
+            <!-- 更新対象のSuitou.idの値 -->
             {% if mode == 'update' %}
             <input type="hidden" name="update_suitou_id" value="{{ update_suitou_id }}" />
             {% endif %}
 
             <div class="form-group row">
                 <div class="col-2">
-                    <label for="suitou_date" class="col-form-label label_name">納品日</label>
+                    <label for="suitou_date" class="col-form-label label_name">出納日</label>
                 </div>
                 <div class="col-10">
                     <!-- <input required type="date" class="form-control form-control-lg width_210" id="suitou_date" name="suitou_date" autocomplete="off"/> -->
@@ -59,7 +59,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-2">
-                    <label for="suitousaki" class="col-form-label label_name">納品先</label>
+                    <label for="suitousaki" class="col-form-label label_name">出納先</label>
                 </div>
                 <div class="col-10">
                     <!-- <input required type="search" class="form-control form-control-lg" name="suitousaki" autocomplete="off" list="company_list"> -->

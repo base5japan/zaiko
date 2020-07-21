@@ -1,7 +1,7 @@
 $(document).ready(function () {
 	// 画面の初期表示状態を設定
 	init();
-	// 納品先候補を作成
+	// 出納先候補を作成
 	createCompanyList();
 	// 一覧部の商品選択候補を作成
 	createShohinList();
@@ -51,7 +51,7 @@ function init() {
 };
 
 /**
- * 納品先選択候補を作成
+ * 出納先選択候補を作成
  */
 function createCompanyList() {
 	let modalCompanyList = $("#company_list");

@@ -14,7 +14,7 @@ from app_table.models import SuitouDetail
 class SuitouRegistView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         '''
-        納品登録画面-初期表示処理
+        出納登録画面-初期表示処理
         '''
         service = SuitouService(self.request)
         form = SuitouForm()
@@ -32,7 +32,7 @@ class SuitouRegistView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         '''
-        納品登録画面-登録処理
+        出納登録画面-登録処理
         '''
         service = SuitouService(self.request)
         form = SuitouForm(request.POST)
@@ -48,10 +48,10 @@ class SuitouRegistView(LoginRequiredMixin, View):
             }
             return render(request, 'suitou/regist.html', params)
 
-        # 納品を登録する
+        # 出納を登録する
         service.registCompany(form.cleaned_data['suitousaki'])
         service.registSuitou(form, detailFormset)
-        messages.success(request, '納品情報を登録しました。')
+        messages.success(request, '出納情報を登録しました。')
 
-        # 納品登録画面初期表示処理へリダイレクト
+        # 出納登録画面初期表示処理へリダイレクト
         return redirect(reverse('suitou_list_view'))

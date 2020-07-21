@@ -6,7 +6,7 @@ from app_table.models import SuitouDetail
 
 class SuitouForm(forms.ModelForm):
     '''
-    納品フォーム
+    出納フォーム
     '''
     class Meta:
         model = Suitou
@@ -40,7 +40,7 @@ class SuitouForm(forms.ModelForm):
 
 class SuitouDetailForm(forms.ModelForm):
     '''
-    納品詳細フォーム
+    出納詳細フォーム
     '''
     class Meta:
         model = SuitouDetail

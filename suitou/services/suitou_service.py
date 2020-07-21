@@ -11,7 +11,7 @@ import json
 
 class SuitouService:
     '''
-    納品画面用サービスクラス
+    出納画面用サービスクラス
     '''
 
     def __init__(self, request):
@@ -19,7 +19,7 @@ class SuitouService:
 
     def retrieveSuitou(self, suitouId):
         '''
-        納品情報を検索する
+        出納情報を検索する
         '''
         suitou = (Suitou.objects
                   .filter(belong_user=self.request.user.email, id=suitouId)
@@ -29,7 +29,7 @@ class SuitouService:
 
     def retrieveSuitouDetailList(self, suitouId):
         '''
-        納品情報を検索する
+        出納情報を検索する
         '''
         suitouDetailList = (SuitouDetail.objects
                             .filter(belong_user=self.request.user.email, suitou_id=suitouId)
@@ -38,14 +38,14 @@ class SuitouService:
 
     def retrieveSuitouModel(self, suitouId):
         '''
-        納品情報を検索する
+        出納情報を検索する
         '''
         suitou = Suitou.objects.get(belong_user=self.request.user.email, id=suitouId)
         return suitou
 
     def retrieveSuitouDetailModelBySuitou(self, suitou):
         '''
-        納品情報を検索する
+        出納情報を検索する
         '''
         suitouDetail = SuitouDetail.objects.all().filter(
             belong_user=self.request.user.email,
@@ -56,7 +56,7 @@ class SuitouService:
 
     def retrieveSuitouList(self):
         '''
-        納品一覧情報を検索する
+        出納一覧情報を検索する
         '''
         # suitouList = (Suitou.objects
         #     .filter(belong_user=self.request.user.email)
@@ -105,7 +105,7 @@ class SuitouService:
 
     def deleteSuitou(self, suitouId):
         '''
-        納品情報を削除する
+        出納情報を削除する
         '''
         suitou = Suitou.objects.get(belong_user=self.request.user.email, id=suitouId)
         suitou.delete()
@@ -160,7 +160,7 @@ class SuitouService:
         '''
         商品情報を登録する
         '''
-        # 保存対象の納品オブジェクトを取得する（この時点ではコミットしない）
+        # 保存対象の出納オブジェクトを取得する（この時点ではコミットしない）
         suitou = form.save(commit=False)
 
         # 画面からPOSTされたデータの他に必須のデータをセットして保存する
@@ -181,7 +181,7 @@ class SuitouService:
 
     def updateSuitou(self, form, formset):
         '''
-        納品情報を更新する
+        出納情報を更新する
         '''
         suitou = form.save(commit=False)
         detailList = formset.save(commit=False)

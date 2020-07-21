@@ -10,8 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class SuitouDeleteView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         '''
-        納品一覧画面-削除処理
+        出納一覧画面-削除処理
         '''
         SuitouService(request).deleteSuitou(request.POST.get("suitou_id"))
-        messages.success(request, '納品情報を削除しました。')
+        messages.success(request, '出納情報を削除しました。')
         return redirect(reverse('suitou_list_view'))

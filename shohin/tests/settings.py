@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'nohin.apps.NohinConfig',
     'app_table.apps.AppTableConfig',
     'app_common.apps.AppCommonConfig',
+    'suitou.apps.SuitouConfig',
 ]
 
 MIDDLEWARE = [
@@ -194,15 +195,15 @@ LOGGING = {
     },
     'loggers': {
         'middleware_logger': {
-            'handlers': ['middleware_logfile_handler',],
+            'handlers': ['middleware_logfile_handler', ],
             'level': 'DEBUG',
         },
     },
 }
 
-#---------------------
+# ---------------------
 # django all-auth関連
-#---------------------
+# ---------------------
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',

@@ -84,7 +84,7 @@ class Suitou(BaseModel):
     '''
     belong_user = models.CharField(verbose_name='所属ユーザ', max_length=50)
     suitou_date = models.DateField(verbose_name='納品日')
-    suitousaki = models.CharField(verbose_name='納品先', max_length=50)
+    suitousaki = models.CharField(verbose_name='出納先', max_length=50)
     total_price = models.IntegerField(verbose_name='合計金額')
     memo = models.TextField(verbose_name='メモ', max_length=1000, null=True, blank=True)
 
@@ -94,14 +94,14 @@ class Suitou(BaseModel):
 
 class SuitouDetail(BaseModel):
     '''
-    納品詳細
+    出納詳細
     '''
     belong_user = models.CharField(verbose_name='所属ユーザ', max_length=50)
     kataban = models.CharField(verbose_name='会社名', max_length=50)
     price = models.IntegerField(verbose_name='単価')
     amount = models.IntegerField(verbose_name='数量')
     # 外部キー
-    nohin = models.ForeignKey(Nohin, verbose_name='納品', on_delete=models.CASCADE)
+    suitou = models.ForeignKey(Suitou, verbose_name='出納', on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}, {}, {}, {}'.format(self.belong_user, self.kataban, self.price, self.amount)

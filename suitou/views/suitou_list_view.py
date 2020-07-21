@@ -10,7 +10,7 @@ from suitou.services.suitou_service import SuitouService
 class SuitouListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         '''
-        納品一覧画面-初期表示処理
+        出納一覧画面-初期表示処理
         '''
         mode = self.kwargs.get('mode')
         service = SuitouService(self.request)

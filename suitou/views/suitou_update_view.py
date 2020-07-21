@@ -13,14 +13,14 @@ from app_table.models import SuitouDetail
 class SuitouUpdateView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         '''
-        納品更新画面-初期表示処理
+        出納更新画面-初期表示処理
         '''
         suitouId = request.GET['suitou_id']
         service = SuitouService(request)
         suitou = service.retrieveSuitou(suitouId)
 
         if not suitou:
-            messages.error(request, '納品情報の取得に失敗しました。')
+            messages.error(request, '出納情報の取得に失敗しました。')
             return redirect(reverse('suitou_list_view'))
 
         form = SuitouForm(list(suitou)[0])
@@ -39,7 +39,7 @@ class SuitouUpdateView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         '''
-        納品更新画面-更新処理
+        出納更新画面-更新処理
         '''
         suitouId = request.POST['update_suitou_id']
         service = SuitouService(request)
@@ -61,10 +61,10 @@ class SuitouUpdateView(LoginRequiredMixin, View):
             }
             return render(request, 'suitou/regist.html', params)
 
-        # 納品を登録する
+        # 出納を登録する
         service.updateSuitou(form, formset)
         service.registCompany(form.cleaned_data['suitousaki'])
-        messages.success(request, '納品情報を更新しました。')
+        messages.success(request, '出納情報を更新しました。')
 
-        # 納品一覧画面の初期表示処理へリダイレクト
+        # 出納一覧画面の初期表示処理へリダイレクト
         return redirect(reverse('suitou_list_view'))
