@@ -46,14 +46,13 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    'inventory',
-
     # 独自機能
     # 'accounts.apps.AccountsConfig',
     'shohin.apps.ShohinConfig',
     'nohin.apps.NohinConfig',
     'app_table.apps.AppTableConfig',
     'app_common.apps.AppCommonConfig',
+    'suitou.apps.SuitouConfig',
 ]
 
 

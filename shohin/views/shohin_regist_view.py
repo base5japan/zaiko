@@ -31,21 +31,21 @@ class ShohinRegistView(LoginRequiredMixin, View):
                 'form': form
             }
             return render(request, 'shohin/regist.html', params)
-    
+
         service = ShohinService(request)
 
         # 登録済みチェック
         if service.existShohin(form.cleaned_data['kataban']):
-            form.add_error('kataban', '既に登録されている型番です。未登録の型番を入力してください。')
+            form.add_error('kataban', '既に登録されている会社名です。未登録の会社名を入力してください。')
             params = {
                 'mode': 'regist',
                 'form': form
             }
             return render(request, 'shohin/regist.html', params)
-            
+
         # 商品を登録する
         service.registShohin(form)
         messages.success(request, '商品情報を登録しました。')
-        
+
         # 商品一覧画面の初期表示処理へリダイレクト
         return redirect(reverse('shohin_list_view'))

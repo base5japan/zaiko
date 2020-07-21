@@ -15,7 +15,7 @@ class ShohinUpdateView(LoginRequiredMixin, View):
         '''
         kataban = request.GET['kataban']
         shohin = ShohinService(request).retrieveShohin(kataban)
-        
+
         if not shohin:
             messages.error(request, '商品情報の取得に失敗しました。')
             return redirect(reverse('shohin_list_view'))

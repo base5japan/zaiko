@@ -35,5 +35,6 @@ urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('shohin/', include('shohin.urls')),
     path('nohin/', include('nohin.urls')),
+    path('suitou/', include('suitou.urls')),
 
 ]

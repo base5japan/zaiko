@@ -9,5 +9,5 @@ urlpatterns = [
     path('list/', ShohinListView.as_view(), name='shohin_list_view'),
     path('delete/', ShohinDeleteView.as_view(), name='shohin_delete_view'),
     path('regist/', ShohinRegistView.as_view(), name='shohin_regist_view'),
-    path('updaete/', ShohinUpdateView.as_view(), name='shohin_update_view'),
+    path('update/', ShohinUpdateView.as_view(), name='shohin_update_view'),
 ]

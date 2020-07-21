@@ -98,11 +98,11 @@
         }
 
         /* 明細テーブル */
-        .nohin_meisai_table {
+        .suitou_meisai_table {
             margin-top: .7cm;
         }
 
-        .nohin_meisai_table thead {
+        .suitou_meisai_table thead {
             height: 1cm;
             text-align: center;
             font-weight: 600;
@@ -111,7 +111,7 @@
             border-top-color: rgb(70, 70, 70);
         }
 
-        .nohin_meisai_table tbody {
+        .suitou_meisai_table tbody {
             height: .8cm;
             text-align: right;
         }
@@ -124,12 +124,12 @@
         }
 
         /* 納品先テーブル */
-        .nohinsaki_table {
+        .suitousaki_table {
             margin-top: 1.2cm;
             text-align: left;
         }
 
-        .nohinsaki {
+        .suitousaki {
             margin-top: 1cm;
             font-size: 18px;
             line-height: 25px;
@@ -174,7 +174,7 @@
                 <span>納品日：</span>
             </td>
             <td class="bottom_border" style="width: 14%; padding-top: .1cm; text-align: right">
-                <span>{{ nohin.nohin_date }}</span>
+                <span>{{ suitou.suitou_date }}</span>
             </td>
         </tr>
         <tr>
@@ -190,11 +190,11 @@
         </tr>
     </table>
 
-    <table class="nohinsaki_table">
+    <table class="suitousaki_table">
         <tr>
-            <td class="nohinsaki" style="width: 60%;">
+            <td class="suitousaki" style="width: 60%;">
                 <p style="padding-left: 5px; padding-right: 10px; text-decoration: underline;">
-                    {{ nohin.nohinsaki }}&nbsp;&nbsp;&nbsp;御中</p>
+                    {{ suitou.suitousaki }}&nbsp;&nbsp;&nbsp;御中</p>
             </td>
             <td rowspan="2" class="light_border"
                 style="width: 40%; vertical-align: top; text-align: left; padding-top: .1cm; padding-left: .1cm;">
@@ -214,13 +214,13 @@
                 <p>合計金額（税込）</p>
             </td>
             <td class="normal_border zeikomi_kingaku_disp" style="width: 38%; text-align: right; padding-right: .2cm;">
-                <p>￥{{ nohin.zeikomi_total_price|intcomma }}</p>
+                <p>￥{{ suitou.zeikomi_total_price|intcomma }}</p>
             </td>
             <td style="width: 40%;"></td>
         </tr>
     </table>
 
-    <table class="normal_border nohin_meisai_table">
+    <table class="normal_border suitou_meisai_table">
         <thead>
             <tr>
                 <td style="background-color: rgb(210, 210, 210); padding-top: .1cm;">
@@ -267,7 +267,7 @@
                     <p>小計</p>
                 </td>
                 <td class="normal_border" style="width: 26%; padding-top: .1cm; padding-right: .1cm;">
-                    <p>￥{{ nohin.total_price|intcomma }}</p>
+                    <p>￥{{ suitou.total_price|intcomma }}</p>
                 </td>
             </tr>
             <tr>
@@ -278,7 +278,7 @@
                     <p>消費税</p>
                 </td>
                 <td class="normal_border" style="padding-top: .1cm; padding-right: .1cm;">
-                    <p>￥{{ nohin.zeigaku|intcomma }}</p>
+                    <p>￥{{ suitou.zeigaku|intcomma }}</p>
                 </td>
             </tr>
             <tr>
@@ -289,7 +289,7 @@
                     <p>合計</p>
                 </td>
                 <td class="normal_border" style="padding-top: .1cm; padding-right: .1cm;">
-                    <p>￥{{ nohin.zeikomi_total_price|intcomma }}</p>
+                    <p>￥{{ suitou.zeikomi_total_price|intcomma }}</p>
                 </td>
             </tr>
         </tbody>

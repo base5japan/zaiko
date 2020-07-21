@@ -5,7 +5,7 @@
 
 <!-- ページごとのCSS -->
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'resources/css/nohin/regist.css' %}">
+<link rel="stylesheet" href="{% static 'resources/css/suitou/regist.css' %}">
 {% endblock %}
 
 <!-- タイトル -->
@@ -37,35 +37,35 @@
 
     <!-- 個別コンテンツ -->
     <div class="container-fluid animated fadeInUpSmall">
-        <form action="" method="post" name="nohin_form" autocomplete="off">
+        <form action="" method="post" name="suitou_form" autocomplete="off">
             {% csrf_token %}
 
             <!-- 更新対象のNohin.idの値 -->
             {% if mode == 'update' %}
-            <input type="hidden" name="update_nohin_id" value="{{ update_nohin_id }}" />
+            <input type="hidden" name="update_suitou_id" value="{{ update_suitou_id }}" />
             {% endif %}
 
             <div class="form-group row">
                 <div class="col-2">
-                    <label for="nohin_date" class="col-form-label label_name">納品日</label>
+                    <label for="suitou_date" class="col-form-label label_name">納品日</label>
                 </div>
                 <div class="col-10">
-                    <!-- <input required type="date" class="form-control form-control-lg width_210" id="nohin_date" name="nohin_date" autocomplete="off"/> -->
-                    {{ form.nohin_date }}
-                    {% if form.nohin_date.errors %}
-                    <p class="error_msg">{{ form.nohin_date.errors.0 }}</p>
+                    <!-- <input required type="date" class="form-control form-control-lg width_210" id="suitou_date" name="suitou_date" autocomplete="off"/> -->
+                    {{ form.suitou_date }}
+                    {% if form.suitou_date.errors %}
+                    <p class="error_msg">{{ form.suitou_date.errors.0 }}</p>
                     {% endif %}
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-2">
-                    <label for="nohinsaki" class="col-form-label label_name">納品先</label>
+                    <label for="suitousaki" class="col-form-label label_name">納品先</label>
                 </div>
                 <div class="col-10">
-                    <!-- <input required type="search" class="form-control form-control-lg" name="nohinsaki" autocomplete="off" list="company_list"> -->
-                    {{ form.nohinsaki }}
-                    {% if form.nohinsaki.errors %}
-                    <p class="error_msg">{{ form.nohinsaki.errors.0 }}</p>
+                    <!-- <input required type="search" class="form-control form-control-lg" name="suitousaki" autocomplete="off" list="company_list"> -->
+                    {{ form.suitousaki }}
+                    {% if form.suitousaki.errors %}
+                    <p class="error_msg">{{ form.suitousaki.errors.0 }}</p>
                     {% endif %}
                 </div>
             </div>
@@ -87,19 +87,19 @@
                     <table id="detail_table" class="table table-striped">
                         <thead>
                             <tr class="modal_thead_tr">
-                                <td class="nohin_shohin_width">
+                                <td class="suitou_shohin_width">
                                     <span>会社名・商品名</span>
                                     <hr>
                                 </td>
-                                <td class="nohin_tanka_width">
+                                <td class="suitou_tanka_width">
                                     <span>単価</span>
                                     <hr>
                                 </td>
-                                <td class="nohin_suryo_width">
+                                <td class="suitou_suryo_width">
                                     <span>数量</span>
                                     <hr>
                                 </td>
-                                <td class="nohin_func_icon_width">
+                                <td class="suitou_func_icon_width">
                                     <a id="row_add_btn" class="circle_btn_small"><i class="fas fa-plus"></i></a>
                                 </td>
                             </tr>
@@ -107,19 +107,19 @@
                         <tbody>
                             {% for detail in formset %}
                             <tr>
-                                <td class="nohin_shohin_width">
+                                <td class="suitou_shohin_width">
                                     {{ detail.kataban }}
                                     {% if detail.kataban.errors %}
                                     <p class="error_msg">{{ detail.kataban.errors.0 }}</p>
                                     {% endif %}
                                 </td>
-                                <td class="nohin_tanka_width">
+                                <td class="suitou_tanka_width">
                                     {{ detail.price }}
                                     {% if detail.price.errors %}
                                     <p class="error_msg">{{ detail.price.errors.0 }}</p>
                                     {% endif %}
                                 </td>
-                                <td class="nohin_suryo_width nohin_suryo_row form-inline">
+                                <td class="suitou_suryo_width suitou_suryo_row form-inline">
                                     {{ detail.amount }}
                                     <span class="slash">/</span>
                                     <span class="zaikosu js_zaikosu"></span>
@@ -127,7 +127,7 @@
                                     <p class="error_msg">{{ detail.amount.errors.0 }}</p>
                                     {% endif %}
                                 </td>
-                                <td class="nohin_func_icon_width nohin_func_icon_row">
+                                <td class="suitou_func_icon_width suitou_func_icon_row">
                                     {% if detail.instance.pk %}
                                     <a class="row_circle_btn js_row_toggle_btn"><i class="fas fa-times"></i></a>
                                     {{ detail.DELETE }}
@@ -155,18 +155,18 @@
                     <table class="display_none js_empty_row">
                         <tbody>
                             <tr>
-                                <td class="nohin_shohin_width">
+                                <td class="suitou_shohin_width">
                                     <span class="js_dummy_kataban"></span>
                                 </td>
-                                <td class="nohin_tanka_width">
+                                <td class="suitou_tanka_width">
                                     <span class="js_dummy_price"></span>
                                 </td>
-                                <td class="nohin_suryo_width nohin_suryo_row form-inline">
+                                <td class="suitou_suryo_width suitou_suryo_row form-inline">
                                     <span class="js_dummy_amount"></span>
                                     <span class="slash">/</span>
                                     <span class="zaikosu js_zaikosu"></span>
                                 </td>
-                                <td class="nohin_func_icon_width nohin_func_icon_row">
+                                <td class="suitou_func_icon_width suitou_func_icon_row">
                                     <a class="row_circle_btn js_row_delete_btn"><i class="fas fa-times"></i></a>
                                 </td>
                             </tr>
@@ -213,7 +213,7 @@
             <!-- ボタン表示部 -->
             <div class="row mt-5">
                 <div class="col-12 button_area">
-                    <a href="{% url 'nohin_list_view' %}" class="common_circle_btn animsition-link"><i
+                    <a href="{% url 'suitou_list_view' %}" class="common_circle_btn animsition-link"><i
                             class="fas fa-chevron-left"></i>
                         <div class="btn_txt">戻る</div>
                     </a>
@@ -243,12 +243,12 @@
 <!-- ページごとのjs -->
 {% block extra_js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/7.2.3/decimal.min.js"></script>
-<script src="{% static 'resources/js/nohin/regist.js' %}"></script>
+<script src="{% static 'resources/js/suitou/regist.js' %}"></script>
 <script>
     var shohinJson = JSON.parse('{{ shohin_json }}'.replace(/&quot;/g, '"'));
     var companyJson = JSON.parse('{{ company_json }}'.replace(/&quot;/g, '"'));
-    var nohinRegistViewUrl = "{% url 'nohin_regist_view' %}";
-    var nohinUpdateViewUrl = "{% url 'nohin_update_view' %}";
+    var suitouRegistViewUrl = "{% url 'suitou_regist_view' %}";
+    var suitouUpdateViewUrl = "{% url 'suitou_update_view' %}";
     var mode = "{{ mode }}";
 </script>
 {% endblock %}
