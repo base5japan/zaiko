@@ -2,8 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-
-
 class BaseModel(models.Model):
     '''
     各モデルの共通項目
@@ -15,7 +13,6 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
-
 
 class Shohin(BaseModel):
     '''
@@ -29,11 +26,10 @@ class Shohin(BaseModel):
     memo = models.TextField(verbose_name='メモ', max_length=1000, null=True, blank=True)
 
     class Meta:
-        unique_together = (('belong_user', 'kataban'))
-
+        unique_together=(('belong_user', 'kataban'))
+    
     def __str__(self):
         return '{}, {}, {}, {}, {}'.format(self.belong_user, self.kataban, self.zaikosu, self.price, self.shohin_name)
-
 
 class Company(BaseModel):
     '''
@@ -41,13 +37,12 @@ class Company(BaseModel):
     '''
     belong_user = models.CharField(verbose_name='所属ユーザ', max_length=50)
     company_name = models.CharField(verbose_name='会社名', max_length=50)
-
+    
     class Meta:
-        unique_together = (('belong_user', 'company_name'))
+        unique_together=(('belong_user', 'company_name'))
 
     def __str__(self):
         return '{}, {}'.format(self.belong_user, self.company_name)
-
 
 class Nohin(BaseModel):
     '''
@@ -62,7 +57,6 @@ class Nohin(BaseModel):
     def __str__(self):
         return '{}, {}, {}'.format(self.belong_user, self.nohin_date, self.nohinsaki)
 
-
 class NohinDetail(BaseModel):
     '''
     納品詳細
@@ -73,6 +67,8 @@ class NohinDetail(BaseModel):
     amount = models.IntegerField(verbose_name='数量')
     # 外部キー
     nohin = models.ForeignKey(Nohin, verbose_name='納品', on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return '{}, {}, {}, {}'.format(self.belong_user, self.kataban, self.price, self.amount)
+
+

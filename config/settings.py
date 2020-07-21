@@ -15,7 +15,8 @@ from django.contrib.messages import constants as message_constants
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# プロジェクトのフォルダ名
+PROJECT_NAME = os.path.basename(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -39,16 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'accounts',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 
     'inventory',
 
     # 独自機能
-    'accounts.apps.AccountsConfig',
+    # 'accounts.apps.AccountsConfig',
     'shohin.apps.ShohinConfig',
     'nohin.apps.NohinConfig',
     'app_table.apps.AppTableConfig',
     'app_common.apps.AppCommonConfig',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,8 +73,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'templates', 'allauth'), ],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
+        # os.path.join(BASE_DIR, 'templates', 'allauth'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -141,3 +148,32 @@ MESSAGE_TAGS = {
     message_constants.SUCCESS: 'alert alert-success alert-dismissible fade show animated fadeInLeftBig',
     message_constants.ERROR: 'alert alert-danger alert-dismissible fade show animated fadeInLeftBig',
 }
+
+# ---------------------
+# django all-auth関連
+# ---------------------
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+# 認証方式を「メールアドレスとパスワード」に変更
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ユーザー名は使用しない
+ACCOUNT_USERNAME_REQUIRED = False
+# ユーザー登録確認メールは送信しない
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+# メールアドレスを必須項目にする
+ACCOUNT_EMAIL_REQUIRED = True
+SITE_ID = 1
+LOGIN_REDIRECT_URL = 'home'
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'top'
+# ログアウト時、ログアウト画面を経由しない
+ACCOUNT_LOGOUT_ON_GET = True
+# 未ログインの場合の遷移先
+LOGIN_URL = '/accounts/login/'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kaitovillagesenaha@gmail.com'
+EMAIL_HOST_PASSWORD = 'senaha1110'
+EMAIL_USE_TLS = True

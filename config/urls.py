@@ -29,7 +29,7 @@ class HomeView(LoginRequiredMixin, View):
 urlpatterns = [
     # django all-auth関連
     path('admin/', admin.site.urls),
-    # path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     # 独自機能
     path('', TemplateView.as_view(template_name='home.html'), name='top'),
     path('home/', HomeView.as_view(), name='home'),

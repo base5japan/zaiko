@@ -10,6 +10,7 @@ flake8 = "*"
 [packages]
 django = "*"
 xhtml2pdf = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.8"
