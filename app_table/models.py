@@ -46,7 +46,7 @@ class Company(BaseModel):
         unique_together = (('belong_user', 'company_name'))
 
     def __str__(self):
-        return '{}, {}'.format(self.belong_user, self.company_name)
+        return '{}'.format(self.company_name)
 
 
 class Nohin(BaseModel):

@@ -59,7 +59,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-2">
-                    <label for="suitousaki" class="col-form-label label_name">出納先</label>
+                    <label for="suitou_date" class="col-form-label label_name">担当者</label>
                 </div>
                 <div class="col-10">
                     <!-- <input required type="search" class="form-control form-control-lg" name="suitousaki" autocomplete="off" list="company_list"> -->
@@ -69,6 +69,18 @@
                     {% endif %}
                 </div>
             </div>
+            {# <div class="form-group row"> #}
+            {#  <div class="col-2"> #}
+            {#  <label for="suitousaki" class="col-form-label label_name">出納先</label> #}
+            {#  </div> #}
+            {#  <div class="col-10"> #}
+            <!-- <input required type="search" class="form-control form-control-lg" name="suitousaki" autocomplete="off" list="company_list"> -->
+            {#   {{ form.suitousaki }} #}
+            {#    {% if form.suitousaki.errors %} #}
+            {#    <p class="error_msg">{{ form.suitousaki.errors.0 }}</p> #}
+            {#   {% endif %} #}
+            {#   </div> #}
+            {#   </div> #}
             <div class="form-group row">
                 <div class="col-2">
                     <label for="memo" class="col-form-label label_name">メモ</label>
@@ -91,10 +103,10 @@
                                     <span>会社名・商品名</span>
                                     <hr>
                                 </td>
-                                <td class="suitou_tanka_width">
-                                    <span>単価</span>
-                                    <hr>
-                                </td>
+                                {#      <td class="suitou_tanka_width"> #}
+                                {#       <span>単価</span> #}
+                                {#     <hr> #}
+                                {#    </td> #}
                                 <td class="suitou_suryo_width">
                                     <span>数量</span>
                                     <hr>
@@ -113,12 +125,12 @@
                                     <p class="error_msg">{{ detail.kataban.errors.0 }}</p>
                                     {% endif %}
                                 </td>
-                                <td class="suitou_tanka_width">
-                                    {{ detail.price }}
-                                    {% if detail.price.errors %}
-                                    <p class="error_msg">{{ detail.price.errors.0 }}</p>
-                                    {% endif %}
-                                </td>
+                                {#      <td class="suitou_tanka_width"> #}
+                                {#      {{ detail.price }} #}
+                                {#     {% if detail.price.errors %} #}
+                                {#   <p class="error_msg">{{ detail.price.errors.0 }}</p> #}
+                                {#    {% endif %} #}
+                                {#   </td> #}
                                 <td class="suitou_suryo_width suitou_suryo_row form-inline">
                                     {{ detail.amount }}
                                     <span class="slash">/</span>

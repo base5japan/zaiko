@@ -46,14 +46,32 @@
                                 <span>出納日</span>
                                 <hr>
                             </td>
-                            <td class="torihikisaki_width">
-                                <span>出納先</span>
+                            <td class="date_width">
+                                <span>会社名・商品名</span>
                                 <hr>
                             </td>
-                            <td class="kingaku_width">
-                                <span>合計金額</span>
+                            <td class="date_width">
+                                <span>個数</span>
                                 <hr>
                             </td>
+                            <td class="date_width">
+                                <span>残数</span>
+                                <hr>
+                            </td>
+                            <td class="date_width">
+                                <span>担当者</span>
+                                <hr>
+                            </td>
+
+                            {# <td class="torihikisaki_width"> #}
+                            {# <span>出納先</span> #}
+                            {# <hr> #}
+                            {# </td> #}
+                            {# <td class="kingaku_width"> #}
+                            {#   <span>合計金額</span> #}
+                            {#    <hr> #}
+                            {#   </td> #}
+
                             <td class="func_icon_width func_icon_head">
                                 <a class="circle_btn_small" data-toggle="modal" data-target="#suitouSearchModal"><i
                                         class="fas fa-search"></i></a>
@@ -67,13 +85,25 @@
                             <td class="date_width date_row">
                                 <span>{{suitou.suitou_date|date:'Y/m/d'}}</span>
                             </td>
-                            <td class="torihikisaki_width torihikisaki_row">
-                                <span>{{suitou.suitousaki}}</span>
+                            <td class="date_width date_row">
+                                <span>{{suitou.suitou_date|date:'Y/m/d'}}</span>
                             </td>
-                            <td class="kingaku_width kingaku_row">
-                                <i class="fas fa-yen-sign font_16"></i>
-                                <span>{{suitou.total_price|intcomma}}</span>
+                            <td class="date_width date_row">
+                                <span>{{suitou.suitou_date|date:'Y/m/d'}}</span>
                             </td>
+                            <td class="date_width date_row">
+                                <span>{{suitou.suitou_date|date:'Y/m/d'}}</span>
+                            </td>
+                            <td class="date_width date_row">
+                                <span>{{suitou.suitou_date|date:'Y/m/d'}}</span>
+                            </td>
+                            {# <td class="torihikisaki_width torihikisaki_row"> #}
+                            {#  <span>{{suitou.suitousaki}}</span> #}
+                            {#  </td> #}
+                            {# <td class="kingaku_width kingaku_row"> #}
+                            {# <i class="fas fa-yen-sign font_16"></i> #}
+                            {#  <span>{{suitou.total_price|intcomma}}</span> #}
+                            {#   </td> #}
                             <td class="func_icon_width func_icon_row" data-suitou_id="{{suitou.id}}">
                                 {% if mode == 'list' %}
                                 <a class="animsition-link row_circle_btn js_update_btn"><i
